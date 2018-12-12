@@ -1,0 +1,79 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "A service for checking credit for an account.",
+    "version": "1.0.0",
+    "title": "Credit Decision",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "<YourHostName>",
+  "paths": {
+    "/account/lastCreditRating": {
+      "post": {
+        "summary": "Evaluates credit rating and decides what payment terms to offer.",
+        "description": "",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Specifies input parameters to calculate payment term",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/creditRating"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "accountId": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "accountId"
+      }
+    },
+    "creditRating": {
+      "type": "object",
+      "properties": {
+        "creditRatingString": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "creditRating"
+      }
+    }
+  }
+}
