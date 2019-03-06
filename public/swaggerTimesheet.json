@@ -1,0 +1,82 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "A service for processing timesheets",
+    "version": "1.0.0",
+    "title": "Timesheet Processing",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "demo-credit-service.herokuapp.com",
+  "paths": {
+    "/timesheet/process": {
+      "post": {
+        "summary": "Processes timesheets",
+        "description": "",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Sends timesheet information for payment processing",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/timesheetInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "schema": {
+              "$ref": "#/definitions/timesheetResponse"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "timesheetInfo": {
+      "type": "object",
+      "properties": {
+        "employeeId": {
+          "type": "string"
+        },
+        "hoursWorked": {
+          "type": "number"
+        }
+      },
+      "xml": {
+        "name": "timesheetInfo"
+      }
+    },
+    "timesheetResponse": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "timesheetResponse"
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./public/swagger.json');
+const swaggerDocumentTimesheet = require('./public/swaggerTimesheet.json');
 
 var app = express();
 
@@ -20,12 +21,20 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs/timesheet', swaggerUi.serve, swaggerUi.setup(swaggerDocumentTimesheet));
 
 /* Randomly returns one of 4 scores */
 app.post('/account/lastCreditRating', function(req, res, next) {
 	const outputs = ['good', 'fair', 'poor', 'not found'];
 	const randNumb = Math.floor(Math.random() * 100) % 4;
 	res.send(outputs[randNumb]);
+});
+
+/* Randomly returns one of 4 scores */
+app.post('/timesheet/process', function(req, res, next) {
+	res.send({
+		"status" : "processing"
+	});
 });
 
 // catch 404 and forward to error handler
